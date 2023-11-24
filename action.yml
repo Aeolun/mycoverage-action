@@ -1,0 +1,17 @@
+name: 'Upload to MyCoverage'
+description: 'Uploads coverage data in support formats to a MyCoverage instance'
+branding:
+  icon: check-circle
+  color: green
+inputs:
+  file:
+    description: 'The coverage file to upload'
+    required: true
+    default: 'coverage/lcov.info'
+  endpoint:
+    description: 'Where to send the coverage data'
+    required: true
+    default: 'https://mycoverage.se1.serial-experiments.com'
+runs:
+  using: 'node20'
+  main: 'index.js'
