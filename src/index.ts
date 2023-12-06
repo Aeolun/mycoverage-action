@@ -9,8 +9,8 @@ async function execute() {
 		const endpoint = core.getInput("endpoint");
 		const file = core.getInput("file");
 
-		const owner = github.context.payload.repository?.owner.login;
-		const repo = github.context.payload.repository?.name;
+		const owner = github.context.payload.repository?.owner.login.toLowerCase();
+		const repo = github.context.payload.repository?.name.toLowerCase();
 
 		if (!owner || !repo) {
 			core.setFailed("Could not get owner or repo!");
