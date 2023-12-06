@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/Aeolun/mycoverage-action/compare/v1.1.3...v1.1.4) (2023-12-06)
+
+
+### Bug Fixes
+
+* import dependencies in valid format ([4bf0084](https://github.com/Aeolun/mycoverage-action/commit/4bf00846033ed071388f11f93f7fa02c974da610))
+
 ## [1.1.3](https://github.com/Aeolun/mycoverage-action/compare/v1.1.2...v1.1.3) (2023-12-06)
 
 
