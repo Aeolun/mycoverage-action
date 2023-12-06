@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/Aeolun/mycoverage-action/compare/v1.1.4...v1.1.5) (2023-12-06)
+
+
+### Bug Fixes
+
+* lowercase all account/repository names ([9fc264c](https://github.com/Aeolun/mycoverage-action/commit/9fc264c42e381c3e2afce38507ae3d4096aa798f))
+
 ## [1.1.4](https://github.com/Aeolun/mycoverage-action/compare/v1.1.3...v1.1.4) (2023-12-06)
 
 
