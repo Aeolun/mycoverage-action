@@ -23,6 +23,7 @@ export default {
 					"package.json",
 					"package-lock.json",
 					"npm-shrinkwrap.json",
+					"dist/**/*",
 				],
 			},
 		],
