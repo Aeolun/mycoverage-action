@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/Aeolun/mycoverage-action/compare/v1.1.2...v1.1.3) (2023-12-06)
+
+
+### Bug Fixes
+
+* hopefully prevent issues by compiling as cjs ([c46b288](https://github.com/Aeolun/mycoverage-action/commit/c46b288219ca4be08c976e822a6d11de5c05316a))
+
 ## [1.1.2](https://github.com/Aeolun/mycoverage-action/compare/v1.1.1...v1.1.2) (2023-12-06)
 
 
