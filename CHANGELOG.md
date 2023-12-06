@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Aeolun/mycoverage-action/compare/v1.1.1...v1.1.2) (2023-12-06)
+
+
+### Bug Fixes
+
+* update npm version, but don't publish ([0f65608](https://github.com/Aeolun/mycoverage-action/commit/0f656089e3c5ae79639782a771ac4755f9554e7b))
+
 ## [1.1.1](https://github.com/Aeolun/mycoverage-action/compare/v1.1.0...v1.1.1) (2023-12-06)
 
 
