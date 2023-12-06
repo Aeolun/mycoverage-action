@@ -1,7 +1,7 @@
-import core from "@actions/core";
-import github from "@actions/github";
-import fs from "fs";
-import path from "path";
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+import fs from "node:fs";
+import path from "node:path";
 
 async function execute() {
 	try {
@@ -9,8 +9,13 @@ async function execute() {
 		const endpoint = core.getInput("endpoint");
 		const file = core.getInput("file");
 
-		const owner = github.context.payload.repository.owner.login;
-		const repo = github.context.payload.repository.name;
+		const owner = github.context.payload.repository?.owner.login;
+		const repo = github.context.payload.repository?.name;
+
+		if (!owner || !repo) {
+			core.setFailed("Could not get owner or repo!");
+			return;
+		}
 
 		const url = path.join(
 			endpoint,
@@ -31,7 +36,11 @@ async function execute() {
 			body: fs.readFileSync(file).toString(),
 		});
 	} catch (error) {
-		core.setFailed(error.message);
+		if (error instanceof Error) {
+			core.setFailed(error.message);
+		} else {
+			core.setFailed("Unknown error!");
+		}
 	}
 }
 execute().then(() => console.log("Done"));
