@@ -34,4 +34,4 @@ async function execute() {
 		core.setFailed(error.message);
 	}
 }
-await execute();
+execute().then(() => console.log("Done"));
