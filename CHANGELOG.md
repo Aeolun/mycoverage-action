@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/Aeolun/mycoverage-action/compare/v1.2.0...v1.2.1) (2023-12-12)
+
+
+### Bug Fixes
+
+* deal properly with empty string values ([7b2ef4d](https://github.com/Aeolun/mycoverage-action/commit/7b2ef4d47cb6a2fdf744b3cd290218f9c30274b1))
+
 # [1.2.0](https://github.com/Aeolun/mycoverage-action/compare/v1.1.5...v1.2.0) (2023-12-12)
 
 
