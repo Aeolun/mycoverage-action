@@ -22895,7 +22895,7 @@ async function execute() {
     });
     const url = import_node_path.default.join(
       endpoint,
-      `api/group/${owner}/project/${repo}/upload?${urlParameters.toString()}}`
+      `api/group/${owner}/project/${repo}/upload?${urlParameters.toString()}`
     );
     if (!import_node_fs.default.existsSync(file)) {
       core.setFailed(`File ${file} does not exist!`);
