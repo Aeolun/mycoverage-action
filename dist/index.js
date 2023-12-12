@@ -22910,6 +22910,7 @@ async function execute() {
       body: import_node_fs.default.readFileSync(file).toString()
     });
   } catch (error) {
+    console.error(error?.toString());
     if (error instanceof Error) {
       core.setFailed(error.message);
     } else {
