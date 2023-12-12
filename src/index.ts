@@ -17,24 +17,31 @@ async function execute() {
       return;
     }
 
+    const inputBaseBranch = core.getInput("baseBranch");
+    const repositoryBaseBranch =
+      github.context.eventName === "pull_request"
+        ? github.context.payload.pull_request?.base.ref
+        : github.context.payload.repository?.default_branch;
+
+    const inputTestName = core.getInput("testName");
+    const inputCoverageRootDirectory = core.getInput("coverageRootDirectory");
+
     const urlParameters = new URLSearchParams({
       branch:
         github.context.eventName === "pull_request"
           ? github.context.payload.pull_request?.head.ref
           : github.context.ref.replace("refs/heads/", ""),
-      testName: core.getInput("testName") ?? github.context.job,
+      testName: inputTestName ? inputTestName : github.context.job,
       ref:
         github.context.eventName === "pull_request"
           ? github.context.payload.pull_request?.head.sha
           : github.context.sha,
-      baseBranch:
-        core.getInput("baseBranch") ??
-        github.context.eventName === "pull_request"
-          ? github.context.payload.pull_request?.base.ref
-          : github.context.payload.repository?.default_branch,
+      baseBranch: inputBaseBranch ? inputBaseBranch : repositoryBaseBranch,
       repositoryRoot: process.env["GITHUB_WORKSPACE"] ?? process.cwd(),
       index: core.getInput("index"),
-      workingDirectory: process.cwd(),
+      workingDirectory: inputCoverageRootDirectory
+        ? inputCoverageRootDirectory
+        : process.cwd(),
     });
 
     const url = path.join(

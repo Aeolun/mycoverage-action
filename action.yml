@@ -19,6 +19,9 @@ inputs:
     description: "The result number of the test to upload coverage for, for situations where tests are split into multiple jobs"
     default: "1"
     required: true
+  coverageRootDirectory:
+    description: "The root directory of the coverage data, for situations where paths in the coverage data are not relative to the root of the repository"
+    required: false
 runs:
   using: "node20"
   main: "dist/index.js"

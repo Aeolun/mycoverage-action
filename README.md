@@ -4,12 +4,13 @@ This action uploads coverage data in supported formats to a MyCoverage instance.
 
 ## Inputs
 
-| Input     | Description                                                                               | Required | Default                                         |
-|-----------|-------------------------------------------------------------------------------------------|----------|-------------------------------------------------|
-| `file`    | The coverage file to upload                                                               | Yes      | 'coverage/lcov.info'                            |
-| `endpoint`| The endpoint where to send the data                                                       | Yes      | 'https://mycoverage.se1.serial-experiments.com' |
-| `index`   | The index to use for the coverage data, used when one test is split in multiple instances | No       | '1'                                             |
-| `testName`| The name of the test suite                                                                | No       | github workflow job name                        |
+| Input     | Description                                                                                                             | Required | Default                                         |
+|-----------|-------------------------------------------------------------------------------------------------------------------------|----------|-------------------------------------------------|
+| `file`    | The coverage file to upload                                                                                             | Yes      | 'coverage/lcov.info'                            |
+| `endpoint`| The endpoint where to send the data                                                                                     | Yes      | 'https://mycoverage.se1.serial-experiments.com' |
+| `index`   | The index to use for the coverage data, used when one test is split in multiple instances                               | No       | '1'                                             |
+| `testName`| The name of the test suite                                                                                              | No       | github workflow job name                        |
+| `coverageRootDirectory`| The root directory of the coverage data, used when coverage is relative to a directory other than the working directory | No       | ''                                              |
 
 ## Example usage
 
