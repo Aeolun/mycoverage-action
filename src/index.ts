@@ -46,7 +46,7 @@ async function execute() {
 
     const url = path.join(
       endpoint,
-      `api/group/${owner}/project/${repo}/upload?${urlParameters.toString()}}`
+      `api/group/${owner}/project/${repo}/upload?${urlParameters.toString()}`
     );
 
     if (!fs.existsSync(file)) {
