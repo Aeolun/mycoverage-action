@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Aeolun/mycoverage-action/compare/v1.1.5...v1.2.0) (2023-12-12)
+
+
+### Features
+
+* send extra parameters ([3f21c14](https://github.com/Aeolun/mycoverage-action/commit/3f21c14e4591afa01eb6d4dfb2a9afccb0f79f1b))
+
 ## [1.1.5](https://github.com/Aeolun/mycoverage-action/compare/v1.1.4...v1.1.5) (2023-12-06)
 
 

@@ -22880,9 +22880,18 @@ async function execute() {
       core.setFailed("Could not get owner or repo!");
       return;
     }
+    const urlParameters = new URLSearchParams({
+      branch: github.context.eventName === "pull_request" ? github.context.payload.pull_request?.head.ref : github.context.ref.replace("refs/heads/", ""),
+      testName: core.getInput("testName") ?? github.context.job,
+      ref: github.context.eventName === "pull_request" ? github.context.payload.pull_request?.head.sha : github.context.sha,
+      baseBranch: core.getInput("baseBranch") ?? github.context.eventName === "pull_request" ? github.context.payload.pull_request?.base.ref : github.context.payload.repository?.default_branch,
+      repositoryRoot: process.env["GITHUB_WORKSPACE"] ?? process.cwd(),
+      index: core.getInput("index"),
+      workingDirectory: process.cwd()
+    });
     const url = import_node_path.default.join(
       endpoint,
-      `api/group/${owner}/project/${repo}/upload`
+      `api/group/${owner}/project/${repo}/upload?${urlParameters.toString()}}`
     );
     if (!import_node_fs.default.existsSync(file)) {
       core.setFailed(`File ${file} does not exist!`);
