@@ -1,3 +1,24 @@
+# 1.0.0 (2023-12-12)
+
+
+### Bug Fixes
+
+* add all the dist files to repository ([8aff9b7](https://github.com/asurion-private/mycoverage-action/commit/8aff9b72c15d24dd0fb65ea79887031d3e1d3247))
+* add uuid library ([0082fcf](https://github.com/asurion-private/mycoverage-action/commit/0082fcf08ea6e1a8841c2b3a4b80f6d9573df632))
+* deal properly with empty string values ([76f06db](https://github.com/asurion-private/mycoverage-action/commit/76f06dbea94e7db4c9d2cdd5fb41e8b3fe3193e5))
+* hopefully prevent issues by compiling as cjs ([d4b0da8](https://github.com/asurion-private/mycoverage-action/commit/d4b0da84d8853e44596f1d6d0b2651ddc9ae17f5))
+* import dependencies in valid format ([1f4f353](https://github.com/asurion-private/mycoverage-action/commit/1f4f3533597ca0f0230481f2a95f2184f63bf03f))
+* improve branding (: ([bd563ab](https://github.com/asurion-private/mycoverage-action/commit/bd563abae869567fa39eceaa5578a2d60577df62))
+* lowercase all account/repository names ([8b9393c](https://github.com/asurion-private/mycoverage-action/commit/8b9393c5833593f8295b3fbf51d250f7fff4bacc))
+* new version on serialexp ([6dcbd03](https://github.com/asurion-private/mycoverage-action/commit/6dcbd03ba5ec6adc86aea11f43017b6e02ce1142))
+* update npm version, but don't publish ([f8a44db](https://github.com/asurion-private/mycoverage-action/commit/f8a44db7821b5c72a6de2d10835a0126b8befe85))
+
+
+### Features
+
+* bundle everything in single js file ([f8f59aa](https://github.com/asurion-private/mycoverage-action/commit/f8f59aa9409dc0ddfb55697618de9f5850c4a84c))
+* send extra parameters ([76dbdc1](https://github.com/asurion-private/mycoverage-action/commit/76dbdc1105385ad255c07f3226fa01b0ac5cd0c3))
+
 ## [1.2.2](https://github.com/serialexp/mycoverage-action/compare/v1.2.1...v1.2.2) (2023-12-12)
 
 
