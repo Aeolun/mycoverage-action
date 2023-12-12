@@ -3,6 +3,15 @@
 
 ### Bug Fixes
 
+* do not strip slashes ([8e96eeb](https://github.com/serialexp/mycoverage-action/commit/8e96eeb1503574f9d5a941b9142cfdf055f70293))
+* only publish on serialexp repository ([10998f4](https://github.com/serialexp/mycoverage-action/commit/10998f4966ab6e03ddca8b73604822efbc1ac0be))
+* output error message on failure ([de70ac1](https://github.com/serialexp/mycoverage-action/commit/de70ac1c21a88aba2e368442a93666bed6b23e10))
+
+## [1.0.1](https://github.com/serialexp/mycoverage-action/compare/v1.0.0...v1.0.1) (2023-12-12)
+
+
+### Bug Fixes
+
 * only publish on serialexp repository ([10998f4](https://github.com/serialexp/mycoverage-action/commit/10998f4966ab6e03ddca8b73604822efbc1ac0be))
 * output error message on failure ([de70ac1](https://github.com/serialexp/mycoverage-action/commit/de70ac1c21a88aba2e368442a93666bed6b23e10))
 
