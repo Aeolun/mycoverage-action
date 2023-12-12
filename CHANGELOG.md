@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/serialexp/mycoverage-action/compare/v1.2.1...v1.2.2) (2023-12-12)
+
+
+### Bug Fixes
+
+* new version on serialexp ([3214a5a](https://github.com/serialexp/mycoverage-action/commit/3214a5a4b6014a2e10abdf8045d1f9af0210d952))
+
 ## [1.2.1](https://github.com/Aeolun/mycoverage-action/compare/v1.2.0...v1.2.1) (2023-12-12)
 
 
