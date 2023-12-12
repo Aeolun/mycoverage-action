@@ -12,6 +12,13 @@ inputs:
     description: "Where to send the coverage data"
     required: true
     default: "https://mycoverage.se1.serial-experiments.com"
+  testName:
+    description: "The name of the test to upload coverage for"
+    required: false
+  index:
+    description: "The result number of the test to upload coverage for, for situations where tests are split into multiple jobs"
+    default: "1"
+    required: true
 runs:
   using: "node20"
   main: "dist/index.js"
