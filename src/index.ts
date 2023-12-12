@@ -44,10 +44,10 @@ async function execute() {
         : process.cwd(),
     });
 
-    const url = path.join(
-      endpoint,
-      `api/group/${owner}/project/${repo}/upload?${urlParameters.toString()}`
-    );
+    const url = [
+      endpoint.replace(/^\/|\/$/g, ""),
+      `api/group/${owner}/project/${repo}/upload?${urlParameters.toString()}`,
+    ].join("/");
 
     if (!fs.existsSync(file)) {
       core.setFailed(`File ${file} does not exist!`);
