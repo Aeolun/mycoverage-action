@@ -11,6 +11,7 @@ This action uploads coverage data in supported formats to a MyCoverage instance.
 | `index`   | The index to use for the coverage data, used when one test is split in multiple instances                               | No       | '1'                                             |
 | `testName`| The name of the test suite                                                                                              | No       | github workflow job name                        |
 | `coverageRootDirectory`| The root directory of the coverage data, used when coverage is relative to a directory other than the working directory | No       | ''                                              |
+| `validateCertificates`| Whether to validate the certificates of the endpoint, set to false if you use a self-signed certificate                 | No       | 'true'                                          |
 
 ## Example usage
 

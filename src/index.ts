@@ -1,5 +1,7 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
+import axios from "axios";
+import * as https from "https";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -25,6 +27,8 @@ async function execute() {
 
     const inputTestName = core.getInput("testName");
     const inputCoverageRootDirectory = core.getInput("coverageRootDirectory");
+    const validateCertificates =
+      core.getInput("validateCertificates") !== "false";
 
     const urlParameters = new URLSearchParams({
       branch:
@@ -55,14 +59,18 @@ async function execute() {
     }
     console.log(`Uploading ${file} to ${url}!`);
 
-    await fetch(url, {
+    const agent = new https.Agent({
+      rejectUnauthorized: false,
+    });
+    await axios.post(url, fs.readFileSync(file).toString(), {
       method: "POST",
       headers: {
         "Content-Type": "application/xml",
       },
-      body: fs.readFileSync(file).toString(),
+      httpsAgent: validateCertificates ? undefined : agent,
     });
   } catch (error) {
+    console.log(error);
     core.error(error?.toString() ?? "Unknown error!");
     if (error instanceof Error) {
       core.setFailed(error);

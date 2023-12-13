@@ -22,6 +22,10 @@ inputs:
   coverageRootDirectory:
     description: "The root directory of the coverage data, for situations where paths in the coverage data are not relative to the root of the repository"
     required: false
+  validateCertificates:
+    description: "Whether to validate the SSL certificate of the endpoint"
+    required: true
+    default: "true"
 runs:
   using: "node20"
   main: "dist/index.js"
