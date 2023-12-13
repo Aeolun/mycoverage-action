@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/serialexp/mycoverage-action/compare/v1.0.2...v1.0.3) (2023-12-13)
+
+
+### Bug Fixes
+
+* allow ignoring certificate validation ([a237847](https://github.com/serialexp/mycoverage-action/commit/a23784713d0b5f8acb527c027fc584885f83659e))
+
 ## [1.0.2](https://github.com/serialexp/mycoverage-action/compare/v1.0.1...v1.0.2) (2023-12-13)
 
 
