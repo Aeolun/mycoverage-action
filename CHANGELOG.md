@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/serialexp/mycoverage-action/compare/v1.0.1...v1.0.2) (2023-12-13)
+
+
+### Bug Fixes
+
+* actually write error message ([fe1327a](https://github.com/serialexp/mycoverage-action/commit/fe1327aeac9300188a4a45472edeb8cc0d6cf431))
+
 ## [1.0.1](https://github.com/serialexp/mycoverage-action/compare/v1.0.0...v1.0.1) (2023-12-12)
 
 
