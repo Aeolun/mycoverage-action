@@ -63,9 +63,9 @@ async function execute() {
       body: fs.readFileSync(file).toString(),
     });
   } catch (error) {
-    console.error(error?.toString());
+    core.error(error?.toString() ?? "Unknown error!");
     if (error instanceof Error) {
-      core.setFailed(error.message);
+      core.setFailed(error);
     } else {
       core.setFailed("Unknown error!");
     }
