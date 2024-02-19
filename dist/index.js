@@ -36557,6 +36557,10 @@ async function execute() {
   try {
     const endpoint = core.getInput("endpoint");
     const file = core.getInput("file");
+    if (!endpoint) {
+      core.setFailed("Endpoint is required!");
+      return;
+    }
     const owner = github.context.payload.repository?.owner.login.toLowerCase();
     const repo = github.context.payload.repository?.name.toLowerCase();
     if (!owner || !repo) {

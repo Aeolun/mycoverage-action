@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/serialexp/mycoverage-action/compare/v1.0.3...v1.0.4) (2024-02-19)
+
+
+### Bug Fixes
+
+* always require endpoint to be specified ([971e375](https://github.com/serialexp/mycoverage-action/commit/971e37594333efa42bf0ac5d13867b0ea0db60f4))
+
 ## [1.0.3](https://github.com/serialexp/mycoverage-action/compare/v1.0.2...v1.0.3) (2023-12-13)
 
 
