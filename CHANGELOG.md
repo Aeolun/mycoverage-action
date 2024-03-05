@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/serialexp/mycoverage-action/compare/v1.0.4...v1.1.0) (2024-03-05)
+
+
+### Features
+
+* allow uploading to lighthouse endpoint ([6901ecf](https://github.com/serialexp/mycoverage-action/commit/6901ecfebf53494efb08a538d24401010792fa25))
+
 ## [1.0.4](https://github.com/serialexp/mycoverage-action/compare/v1.0.3...v1.0.4) (2024-02-19)
 
 

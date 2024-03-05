@@ -36557,6 +36557,8 @@ async function execute() {
   try {
     const endpoint = core.getInput("endpoint");
     const file = core.getInput("file");
+    const kind = core.getInput("kind");
+    const validateCertificates = core.getInput("validateCertificates") !== "false";
     if (!endpoint) {
       core.setFailed("Endpoint is required!");
       return;
@@ -36567,29 +36569,37 @@ async function execute() {
       core.setFailed("Could not get owner or repo!");
       return;
     }
-    const inputBaseBranch = core.getInput("baseBranch");
-    const repositoryBaseBranch = github.context.eventName === "pull_request" ? github.context.payload.pull_request?.base.ref : github.context.payload.repository?.default_branch;
-    const inputTestName = core.getInput("testName");
-    const inputCoverageRootDirectory = core.getInput("coverageRootDirectory");
-    const validateCertificates = core.getInput("validateCertificates") !== "false";
-    const urlParameters = new URLSearchParams({
-      branch: github.context.eventName === "pull_request" ? github.context.payload.pull_request?.head.ref : github.context.ref.replace("refs/heads/", ""),
-      testName: inputTestName ? inputTestName : github.context.job,
-      ref: github.context.eventName === "pull_request" ? github.context.payload.pull_request?.head.sha : github.context.sha,
-      baseBranch: inputBaseBranch ? inputBaseBranch : repositoryBaseBranch,
-      repositoryRoot: process.env["GITHUB_WORKSPACE"] ?? process.cwd(),
-      index: core.getInput("index"),
-      workingDirectory: inputCoverageRootDirectory ? inputCoverageRootDirectory : process.cwd()
-    });
-    const url2 = [
+    let url2 = [
       endpoint.replace(/^\/|\/$/g, ""),
-      `api/group/${owner}/project/${repo}/upload?${urlParameters.toString()}`
+      `api/group/${owner}/project/${repo}/`
     ].join("/");
-    if (!import_node_fs.default.existsSync(file)) {
-      core.setFailed(`File ${file} does not exist!`);
-      return;
+    if (kind === "coverage") {
+      const inputBaseBranch = core.getInput("baseBranch");
+      const repositoryBaseBranch = github.context.eventName === "pull_request" ? github.context.payload.pull_request?.base.ref : github.context.payload.repository?.default_branch;
+      const inputTestName = core.getInput("testName");
+      const inputCoverageRootDirectory = core.getInput("coverageRootDirectory");
+      const urlParameters = new URLSearchParams({
+        branch: github.context.eventName === "pull_request" ? github.context.payload.pull_request?.head.ref : github.context.ref.replace("refs/heads/", ""),
+        testName: inputTestName ? inputTestName : github.context.job,
+        ref: github.context.eventName === "pull_request" ? github.context.payload.pull_request?.head.sha : github.context.sha,
+        baseBranch: inputBaseBranch ? inputBaseBranch : repositoryBaseBranch,
+        repositoryRoot: process.env.GITHUB_WORKSPACE ?? process.cwd(),
+        index: core.getInput("index"),
+        workingDirectory: inputCoverageRootDirectory ? inputCoverageRootDirectory : process.cwd()
+      });
+      url2 += `upload?${urlParameters.toString()}`;
+      if (!import_node_fs.default.existsSync(file)) {
+        core.setFailed(`File ${file} does not exist!`);
+        return;
+      }
+      console.log(`Uploading ${file} to ${url2}!`);
+    } else if (kind === "lighthouse") {
+      const urlParameters = new URLSearchParams({
+        ref: github.context.eventName === "pull_request" ? github.context.payload.pull_request?.head.sha : github.context.sha
+      });
+      url2 += `upload-lighthouse?${urlParameters.toString()}`;
+      console.log(`Uploading ${file} to ${url2}!`);
     }
-    console.log(`Uploading ${file} to ${url2}!`);
     const agent = new https2.Agent({
       rejectUnauthorized: false
     });
