@@ -8,6 +8,10 @@ inputs:
     description: "The coverage file to upload"
     required: true
     default: "coverage/lcov.info"
+  kind:
+    description: "The kind of file to upload (options: 'coverage' or 'lighthouse')"
+    required: true
+    default: "coverage"
   endpoint:
     description: "Where to send the coverage data"
     required: true
