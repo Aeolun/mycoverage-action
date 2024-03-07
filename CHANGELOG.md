@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/serialexp/mycoverage-action/compare/v1.1.0...v2.0.0) (2024-03-07)
+
+
+* feat!: complete rewrite ([1a137d8](https://github.com/serialexp/mycoverage-action/commit/1a137d86316781f12a5fe4da6ca4825b89bd2f78))
+
+
+### BREAKING CHANGES
+
+* This could very much break backwards compatibility
+
 # [1.1.0](https://github.com/serialexp/mycoverage-action/compare/v1.0.4...v1.1.0) (2024-03-05)
 
 
