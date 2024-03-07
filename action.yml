@@ -29,6 +29,15 @@ inputs:
     description: "Whether to validate the SSL certificate of the endpoint"
     required: true
     default: "true"
+  sonarqubeServer:
+    description: "The SonarQube server to download issue data from"
+    required: false
+  sonarqubeLogin:
+    description: "The SonarQube login token to use when downloading issue data"
+    required: false
+  sonarqubePassword:
+    description: "The SonarQube password to use when downloading issue data"
+    required: false
 runs:
   using: "node20"
   main: "dist/index.js"
