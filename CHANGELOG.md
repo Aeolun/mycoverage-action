@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/serialexp/mycoverage-action/compare/v2.0.0...v2.0.1) (2024-03-07)
+
+
+### Bug Fixes
+
+* build cli as well ([1b535cc](https://github.com/serialexp/mycoverage-action/commit/1b535cc32609c1fae645ee0444b1c3d3f44c4675))
+
 # [2.0.0](https://github.com/serialexp/mycoverage-action/compare/v1.1.0...v2.0.0) (2024-03-07)
 
 
