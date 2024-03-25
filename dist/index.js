@@ -36876,7 +36876,7 @@ var coverageAction = async (input) => {
       file: input.file,
       contentType: "application/xml"
     },
-    url: createUrl(`upload-coverage?${urlParameters.toString()}`)
+    url: createUrl(`upload?${urlParameters.toString()}`)
   };
 };
 

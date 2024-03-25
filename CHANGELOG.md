@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/serialexp/mycoverage-action/compare/v2.1.0...v2.1.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* use proper upload coverage url ([7a1ed67](https://github.com/serialexp/mycoverage-action/commit/7a1ed675ed3bdb29a40d8da7b330e2f1937ef65f))
+
 # [2.1.0](https://github.com/serialexp/mycoverage-action/compare/v2.0.1...v2.1.0) (2024-03-25)
 
 

@@ -39779,7 +39779,7 @@ var coverageAction = async (input) => {
       file: input.file,
       contentType: "application/xml"
     },
-    url: createUrl(`upload-coverage?${urlParameters.toString()}`)
+    url: createUrl(`upload?${urlParameters.toString()}`)
   };
 };
 
@@ -39911,7 +39911,7 @@ async function execute() {
 }
 
 // package.json
-var version2 = "2.0.1";
+var version2 = "2.1.0";
 
 // src/cli.ts
 var program2 = new Command();
