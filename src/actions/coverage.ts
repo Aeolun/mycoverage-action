@@ -39,6 +39,6 @@ export const coverageAction: ActionInterface<CoverageActionInput> = async (
       file: input.file,
       contentType: "application/xml",
     },
-    url: createUrl(`upload-coverage?${urlParameters.toString()}`),
+    url: createUrl(`upload?${urlParameters.toString()}`),
   };
 };
