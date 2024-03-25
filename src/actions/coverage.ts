@@ -1,5 +1,6 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
+import { PullRequestEvent } from "@octokit/webhooks-types";
 import fs from "node:fs";
 import { createUrl } from "../lib/create-url";
 import {
@@ -16,7 +17,8 @@ export const coverageAction: ActionInterface<CoverageActionInput> = async (
   const urlParameters = new URLSearchParams({
     branch:
       github.context.eventName === "pull_request"
-        ? github.context.payload.pull_request?.head.ref
+        ? // use pull request refs/merge/[pr-number]/head as branch name
+          github.context.ref
         : github.context.ref.replace("refs/heads/", ""),
     testName: inputTestName ? inputTestName : github.context.job,
     ref: input.ref,

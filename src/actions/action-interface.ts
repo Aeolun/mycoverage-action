@@ -10,7 +10,6 @@ export type CommonActionInput = {
   repository: string;
   endpoint: string;
   ref: string;
-  validateCertificates: "false" | "true";
 };
 
 export type CoverageActionInput = CommonActionInput & {

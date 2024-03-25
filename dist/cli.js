@@ -39905,7 +39905,7 @@ async function execute() {
 }
 
 // package.json
-var version2 = "2.0.0";
+var version2 = "2.0.1";
 
 // src/cli.ts
 var program2 = new Command();
