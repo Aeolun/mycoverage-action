@@ -34,7 +34,10 @@ export const createInput = (): ActionInput => {
     projectName: owner,
     repository: repo,
     ref: ref,
-    baseBranch: repositoryBaseBranch,
+    baseBranch:
+      repositoryBaseBranch && repositoryBaseBranch !== ""
+        ? repositoryBaseBranch
+        : undefined,
     file,
     sonarqubeServer: getInput("sonarqubeServer"),
     sonarqubeLogin: getInput("sonarqubeLogin"),
