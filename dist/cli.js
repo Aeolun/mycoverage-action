@@ -39724,6 +39724,7 @@ var createInput = () => {
   const endpoint = getInput2("endpoint");
   const file = getInput2("file");
   const kind = getInput2("kind");
+  const validateCertificates = getInput2("validateCertificates");
   if (!endpoint) {
     throw new Error("Endpoint is required!");
   }
@@ -39731,11 +39732,13 @@ var createInput = () => {
   const owner = context4.payload.repository?.owner.login.toLowerCase();
   const repo = context4.payload.repository?.name.toLowerCase();
   const repositoryBaseBranch = getInput2("baseBranch") ?? (context4.eventName === "pull_request" ? context4.payload.pull_request?.base.ref : context4.payload.repository?.default_branch);
-  const ref = context4.eventName === "pull_request" ? context4.payload.pull_request.head.sha : context4.sha;
+  const ref = context4.sha;
   if (!owner || !repo) {
     throw new Error("Could not get owner or repo!");
   }
   const input = {
+    endpoint,
+    validateCertificates,
     kind,
     projectName: owner,
     repository: repo,
@@ -39757,7 +39760,10 @@ var coverageAction = async (input) => {
   const inputTestName = core2.getInput("testName");
   const inputCoverageRootDirectory = core2.getInput("coverageRootDirectory");
   const urlParameters = new URLSearchParams({
-    branch: github2.context.eventName === "pull_request" ? github2.context.payload.pull_request?.head.ref : github2.context.ref.replace("refs/heads/", ""),
+    branch: github2.context.eventName === "pull_request" ? (
+      // use pull request refs/merge/[pr-number]/head as branch name
+      github2.context.ref
+    ) : github2.context.ref.replace("refs/heads/", ""),
     testName: inputTestName ? inputTestName : github2.context.job,
     ref: input.ref,
     baseBranch: input.baseBranch,

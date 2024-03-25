@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/serialexp/mycoverage-action/compare/v2.0.1...v2.1.0) (2024-03-25)
+
+
+### Features
+
+* use github merge branch instead of base branch for results ([c3eb96f](https://github.com/serialexp/mycoverage-action/commit/c3eb96f9bc55ccb41fbb0b93e49f1b9949f3be78))
+
 ## [2.0.1](https://github.com/serialexp/mycoverage-action/compare/v2.0.0...v2.0.1) (2024-03-07)
 
 
