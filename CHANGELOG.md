@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/serialexp/mycoverage-action/compare/v2.1.1...v2.1.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* do not pass baseBranch unless it's actually set ([3355cea](https://github.com/serialexp/mycoverage-action/commit/3355cea2f9ee09134f233cda545d1625bada7ec5))
+
 ## [2.1.1](https://github.com/serialexp/mycoverage-action/compare/v2.1.0...v2.1.1) (2024-03-25)
 
 

@@ -39743,7 +39743,7 @@ var createInput = () => {
     projectName: owner,
     repository: repo,
     ref,
-    baseBranch: repositoryBaseBranch,
+    baseBranch: repositoryBaseBranch && repositoryBaseBranch !== "" ? repositoryBaseBranch : void 0,
     file,
     sonarqubeServer: getInput2("sonarqubeServer"),
     sonarqubeLogin: getInput2("sonarqubeLogin"),
@@ -39911,7 +39911,7 @@ async function execute() {
 }
 
 // package.json
-var version2 = "2.1.0";
+var version2 = "2.1.1";
 
 // src/cli.ts
 var program2 = new Command();

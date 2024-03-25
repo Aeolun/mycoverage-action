@@ -36840,7 +36840,7 @@ var createInput = () => {
     projectName: owner,
     repository: repo,
     ref,
-    baseBranch: repositoryBaseBranch,
+    baseBranch: repositoryBaseBranch && repositoryBaseBranch !== "" ? repositoryBaseBranch : void 0,
     file,
     sonarqubeServer: getInput2("sonarqubeServer"),
     sonarqubeLogin: getInput2("sonarqubeLogin"),
