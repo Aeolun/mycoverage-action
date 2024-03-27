@@ -1,3 +1,10 @@
+## [2.1.5](https://github.com/serialexp/mycoverage-action/compare/v2.1.4...v2.1.5) (2024-03-27)
+
+
+### Bug Fixes
+
+* wait for success not pending ([65feab6](https://github.com/serialexp/mycoverage-action/commit/65feab6d15d15cce62267cc9512b1ff1185d4fd3))
+
 ## [2.1.4](https://github.com/serialexp/mycoverage-action/compare/v2.1.3...v2.1.4) (2024-03-27)
 
 
