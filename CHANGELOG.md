@@ -1,3 +1,10 @@
+## [2.1.4](https://github.com/serialexp/mycoverage-action/compare/v2.1.3...v2.1.4) (2024-03-27)
+
+
+### Bug Fixes
+
+* wait for report to be there in first place ([d2a941c](https://github.com/serialexp/mycoverage-action/commit/d2a941c3c197932b9aa2140844c52eea32dcdb14))
+
 ## [2.1.3](https://github.com/serialexp/mycoverage-action/compare/v2.1.2...v2.1.3) (2024-03-27)
 
 

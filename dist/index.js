@@ -36732,6 +36732,24 @@ var Sonarqube = class {
   async getPendingReports() {
     return (await this.getTasks()).filter((task) => task.type === "REPORT" && (task.status === "PENDING" || task.status === "IN_PROGRESS"));
   }
+  async waitForReportToShowUp(timeout = 6e4) {
+    let timeoutTimeout = setTimeout(() => {
+      throw new Error("Timeout waiting for report to show up");
+    }, timeout);
+    let runningTasks = await this.getPendingReports();
+    if (runningTasks.length === 0) {
+      console.log(`No reports yet.`);
+    }
+    while (runningTasks.length === 0) {
+      await new Promise((resolve) => setTimeout(resolve, 2e3));
+      runningTasks = await this.getPendingReports();
+      if (runningTasks.length === 0) {
+        console.log(`No reports yet.`);
+      }
+    }
+    console.log("Reports showed up");
+    clearTimeout(timeoutTimeout);
+  }
   async waitForReportsToFinish(timeout = 6e4) {
     let timeoutTimeout = setTimeout(() => {
       throw new Error("Timeout waiting for tasks to finish");
@@ -36818,6 +36836,7 @@ var sonarqubeAction = async (options) => {
     options.repository,
     options.ref
   );
+  await sq.waitForReportToShowUp();
   await sq.waitForReportsToFinish();
   const issues = await sq.getIssues();
   const issuesSummary = {};
