@@ -36726,9 +36726,29 @@ var Sonarqube = class {
     });
   }
   async getTasks() {
-    const result = await this.request("GET", "api/ce/analysis_status");
-    console.log(result);
+    const result = await this.request("GET", "api/ce/activity");
     return result.data.tasks;
+  }
+  async getPendingReports() {
+    return (await this.getTasks()).filter((task) => task.type === "REPORT" && (task.status === "PENDING" || task.status === "IN_PROGRESS"));
+  }
+  async waitForReportsToFinish(timeout = 6e4) {
+    let timeoutTimeout = setTimeout(() => {
+      throw new Error("Timeout waiting for tasks to finish");
+    }, timeout);
+    let runningTasks = await this.getPendingReports();
+    if (runningTasks.length > 0) {
+      console.log(`Reports for analyses ${runningTasks.map((t) => t.analysisId).join(", ")} still running.`);
+    }
+    while (runningTasks.length > 0) {
+      await new Promise((resolve) => setTimeout(resolve, 2e3));
+      runningTasks = await this.getPendingReports();
+      if (runningTasks.length > 0) {
+        console.log(`Reports for analyses ${runningTasks.map((t) => t.analysisId).join(", ")} still running.`);
+      }
+    }
+    console.log("Reports finished");
+    clearTimeout(timeoutTimeout);
   }
   async getIssues() {
     const issues = [];
@@ -36798,8 +36818,7 @@ var sonarqubeAction = async (options) => {
     options.repository,
     options.ref
   );
-  const status = await sq.getTasks();
-  throw new Error("stop here for now");
+  await sq.waitForReportsToFinish();
   const issues = await sq.getIssues();
   const issuesSummary = {};
   for (const issue of issues) {

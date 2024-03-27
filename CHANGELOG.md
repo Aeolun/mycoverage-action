@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/serialexp/mycoverage-action/compare/v2.1.2...v2.1.3) (2024-03-27)
+
+
+### Bug Fixes
+
+* **sonarqube:** wait for report to finish ([fca2b56](https://github.com/serialexp/mycoverage-action/commit/fca2b568c7e26ea04e452b2703828b2d86d95a05))
+
 ## [2.1.2](https://github.com/serialexp/mycoverage-action/compare/v2.1.1...v2.1.2) (2024-03-25)
 
 
