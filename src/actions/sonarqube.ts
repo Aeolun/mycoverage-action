@@ -16,6 +16,7 @@ export const sonarqubeAction: ActionInterface<SonarqubeActionInput> = async (
     options.repository,
     options.ref
   );
+  await sq.waitForReportToShowUp();
   await sq.waitForReportsToFinish();
 
   const issues = await sq.getIssues();

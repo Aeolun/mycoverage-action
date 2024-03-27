@@ -89,6 +89,25 @@ export class Sonarqube {
     return (await this.getTasks()).filter((task: any) => task.type === 'REPORT' && (task.status === "PENDING" || task.status === "IN_PROGRESS"));
   }
 
+  async waitForReportToShowUp(timeout = 60000) {
+    let timeoutTimeout = setTimeout(() => {
+        throw new Error("Timeout waiting for report to show up");
+    }, timeout);
+    let runningTasks = await this.getPendingReports()
+    if (runningTasks.length === 0) {
+      console.log(`No reports yet.`)
+    }
+    while (runningTasks.length === 0) {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      runningTasks = await this.getPendingReports();
+      if (runningTasks.length === 0) {
+        console.log(`No reports yet.`)
+      }
+    }
+    console.log("Reports showed up")
+    clearTimeout(timeoutTimeout);
+  }
+
   async waitForReportsToFinish(timeout = 60000) {
     let timeoutTimeout = setTimeout(() => {
         throw new Error("Timeout waiting for tasks to finish");
