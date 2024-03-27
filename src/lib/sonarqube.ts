@@ -85,23 +85,29 @@ export class Sonarqube {
     return result.data.tasks;
   }
 
-  async getPendingReports() {
-    return (await this.getTasks()).filter((task: any) => task.type === 'REPORT' && (task.status === "PENDING" || task.status === "IN_PROGRESS"));
+  async getReports() {
+    return (await this.getTasks()).filter((task: any) => task.type === 'REPORT');
+  }
+
+  async getFinishedReports() {
+    return (await this.getTasks()).filter((task: any) => task.status === 'SUCCESS' && task.type === 'REPORT');
   }
 
   async waitForReportToShowUp(timeout = 60000) {
     let timeoutTimeout = setTimeout(() => {
         throw new Error("Timeout waiting for report to show up");
     }, timeout);
-    let runningTasks = await this.getPendingReports()
+    let runningTasks = await this.getReports()
     if (runningTasks.length === 0) {
       console.log(`No reports yet.`)
     }
     while (runningTasks.length === 0) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      runningTasks = await this.getPendingReports();
+      runningTasks = await this.getReports();
       if (runningTasks.length === 0) {
         console.log(`No reports yet.`)
+        const tasks = await this.getTasks();
+        console.log(`Tasks: ${tasks.map((t: any) => t.type).join(', ')}`)
       }
     }
     console.log("Reports showed up")
@@ -112,15 +118,15 @@ export class Sonarqube {
     let timeoutTimeout = setTimeout(() => {
         throw new Error("Timeout waiting for tasks to finish");
     }, timeout);
-    let runningTasks = await this.getPendingReports()
-    if (runningTasks.length > 0) {
-      console.log(`Reports for analyses ${runningTasks.map((t: any) => t.analysisId).join(', ')} still running.`)
+    let finishedTasks = await this.getFinishedReports()
+    if (finishedTasks.length === 0) {
+      console.log(`Reports for analyses ${finishedTasks.map((t: any) => t.analysisId).join(', ')} still running.`)
     }
-    while (runningTasks.length > 0) {
+    while (finishedTasks.length === 0) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      runningTasks = await this.getPendingReports();
-      if (runningTasks.length > 0) {
-        console.log(`Reports for analyses ${runningTasks.map((t: any) => t.analysisId).join(', ')} still running.`)
+      finishedTasks = await this.getFinishedReports();
+      if (finishedTasks.length === 0) {
+        console.log(`Reports for analyses ${finishedTasks.map((t: any) => t.analysisId).join(', ')} still running.`)
       }
     }
     console.log("Reports finished")

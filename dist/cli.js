@@ -39632,22 +39632,27 @@ var Sonarqube = class {
     const result = await this.request("GET", "api/ce/activity");
     return result.data.tasks;
   }
-  async getPendingReports() {
-    return (await this.getTasks()).filter((task) => task.type === "REPORT" && (task.status === "PENDING" || task.status === "IN_PROGRESS"));
+  async getReports() {
+    return (await this.getTasks()).filter((task) => task.type === "REPORT");
+  }
+  async getFinishedReports() {
+    return (await this.getTasks()).filter((task) => task.status === "SUCCESS" && task.type === "REPORT");
   }
   async waitForReportToShowUp(timeout = 6e4) {
     let timeoutTimeout = setTimeout(() => {
       throw new Error("Timeout waiting for report to show up");
     }, timeout);
-    let runningTasks = await this.getPendingReports();
+    let runningTasks = await this.getReports();
     if (runningTasks.length === 0) {
       console.log(`No reports yet.`);
     }
     while (runningTasks.length === 0) {
       await new Promise((resolve) => setTimeout(resolve, 2e3));
-      runningTasks = await this.getPendingReports();
+      runningTasks = await this.getReports();
       if (runningTasks.length === 0) {
         console.log(`No reports yet.`);
+        const tasks = await this.getTasks();
+        console.log(`Tasks: ${tasks.map((t) => t.type).join(", ")}`);
       }
     }
     console.log("Reports showed up");
@@ -39657,15 +39662,15 @@ var Sonarqube = class {
     let timeoutTimeout = setTimeout(() => {
       throw new Error("Timeout waiting for tasks to finish");
     }, timeout);
-    let runningTasks = await this.getPendingReports();
-    if (runningTasks.length > 0) {
-      console.log(`Reports for analyses ${runningTasks.map((t) => t.analysisId).join(", ")} still running.`);
+    let finishedTasks = await this.getFinishedReports();
+    if (finishedTasks.length === 0) {
+      console.log(`Reports for analyses ${finishedTasks.map((t) => t.analysisId).join(", ")} still running.`);
     }
-    while (runningTasks.length > 0) {
+    while (finishedTasks.length === 0) {
       await new Promise((resolve) => setTimeout(resolve, 2e3));
-      runningTasks = await this.getPendingReports();
-      if (runningTasks.length > 0) {
-        console.log(`Reports for analyses ${runningTasks.map((t) => t.analysisId).join(", ")} still running.`);
+      finishedTasks = await this.getFinishedReports();
+      if (finishedTasks.length === 0) {
+        console.log(`Reports for analyses ${finishedTasks.map((t) => t.analysisId).join(", ")} still running.`);
       }
     }
     console.log("Reports finished");
@@ -39956,7 +39961,7 @@ async function execute() {
 }
 
 // package.json
-var version2 = "2.1.3";
+var version2 = "2.1.4";
 
 // src/cli.ts
 var program2 = new Command();
