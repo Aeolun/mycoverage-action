@@ -36725,6 +36725,11 @@ var Sonarqube = class {
       }
     });
   }
+  async getTasks() {
+    const result = await this.request("GET", "api/ce/analysis_status");
+    console.log(result);
+    return result.data.tasks;
+  }
   async getIssues() {
     const issues = [];
     const componentToFile = {};
@@ -36793,6 +36798,8 @@ var sonarqubeAction = async (options) => {
     options.repository,
     options.ref
   );
+  const status = await sq.getTasks();
+  throw new Error("stop here for now");
   const issues = await sq.getIssues();
   const issuesSummary = {};
   for (const issue of issues) {

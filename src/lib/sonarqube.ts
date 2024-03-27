@@ -80,6 +80,34 @@ export class Sonarqube {
     });
   }
 
+  async getTasks() {
+    const result = await this.request("GET", "api/ce/activity");
+    return result.data.tasks;
+  }
+
+  async getPendingReports() {
+    return (await this.getTasks()).filter((task: any) => task.type === 'REPORT' && (task.status === "PENDING" || task.status === "IN_PROGRESS"));
+  }
+
+  async waitForReportsToFinish(timeout = 60000) {
+    let timeoutTimeout = setTimeout(() => {
+        throw new Error("Timeout waiting for tasks to finish");
+    }, timeout);
+    let runningTasks = await this.getPendingReports()
+    if (runningTasks.length > 0) {
+      console.log(`Reports for analyses ${runningTasks.map((t: any) => t.analysisId).join(', ')} still running.`)
+    }
+    while (runningTasks.length > 0) {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      runningTasks = await this.getPendingReports();
+      if (runningTasks.length > 0) {
+        console.log(`Reports for analyses ${runningTasks.map((t: any) => t.analysisId).join(', ')} still running.`)
+      }
+    }
+    console.log("Reports finished")
+    clearTimeout(timeoutTimeout);
+  }
+
   async getIssues() {
     const issues: SonarqubeIssue[] = [];
     const componentToFile: Record<string, string> = {};
