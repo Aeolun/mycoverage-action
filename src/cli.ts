@@ -3,6 +3,7 @@ import {
   ChangeFrequencyActionInput,
   CoverageActionInput,
   LighthouseActionInput,
+  PerformanceActionInput,
   SonarqubeActionInput,
 } from "./actions/action-interface";
 import { execute } from "./execute";
@@ -15,26 +16,26 @@ program
   .description("CLI to interface with the mycoverage API")
   .requiredOption(
     "--namespace <namespace>",
-    "The namespace to upload the coverage to"
+    "The namespace to upload the coverage to",
   )
   .requiredOption(
     "--repository <repository>",
-    "The repository to upload the coverage for"
+    "The repository to upload the coverage for",
   )
   .requiredOption("--ref <ref>", "The ref to upload the coverage for")
   .requiredOption(
     "--endpoint <endpoint>",
-    "The endpoint to upload the coverage to"
+    "The endpoint to upload the coverage to",
   )
   .option(
     "--validateCertificates <validateCertificates>",
     "Whether to validate certificates or not",
-    "true"
+    "true",
   )
   .option(
     "--defaultBranch <defaultBranch>",
     "Which branch is the main branch of this repository",
-    "main"
+    "main",
   )
   .version(version);
 program
@@ -68,12 +69,42 @@ program
     await execute();
   });
 program
+  .command("performance")
+  .description("Upload a set of performance data for an application")
+  .argument("<file>", "The file to upload")
+  .action(async (file, local, cmd) => {
+    const options = cmd.optsWithGlobals();
+    mockInput({
+      projectName: options.namespace,
+      repository: options.repository,
+      endpoint: options.endpoint,
+      validateCertificates: options.validateCertificates,
+      file,
+      kind: "performance",
+      ref: options.ref,
+    } satisfies PerformanceActionInput);
+    mockContext({
+      eventName: "push",
+      payload: {
+        repository: {
+          owner: {
+            login: options.namespace,
+          },
+          default_branch: options.defaultBranch,
+          name: options.repository,
+        },
+      },
+      sha: options.ref,
+    });
+    await execute();
+  });
+program
   .command("coverage")
   .description("Upload a coverage report")
   .argument("<file>", "The file to upload")
   .option(
     "--baseBranch <baseBranch>",
-    "The base branch to compare the coverage against"
+    "The base branch to compare the coverage against",
   )
   .action(async (file, local, cmd) => {
     const options = cmd.optsWithGlobals();
@@ -138,7 +169,7 @@ program
   .requiredOption("--sonarqubeLogin <sonarqubeLogin>", "The sonarqube login")
   .requiredOption(
     "--sonarqubePassword <sonarqubePassword>",
-    "The sonarqube password"
+    "The sonarqube password",
   )
   .action(async (local, command) => {
     const options = command.optsWithGlobals();

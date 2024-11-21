@@ -932,7 +932,7 @@ var require_command = __commonJS({
     var EventEmitter2 = require("events").EventEmitter;
     var childProcess = require("child_process");
     var path = require("path");
-    var fs3 = require("fs");
+    var fs4 = require("fs");
     var process2 = require("process");
     var { Argument: Argument2, humanReadableArgName } = require_argument();
     var { CommanderError: CommanderError2 } = require_error();
@@ -1828,11 +1828,11 @@ Expecting one of '${allowedValues.join("', '")}'`);
         const sourceExt = [".js", ".ts", ".tsx", ".mjs", ".cjs"];
         function findFile(baseDir, baseName) {
           const localBin = path.resolve(baseDir, baseName);
-          if (fs3.existsSync(localBin))
+          if (fs4.existsSync(localBin))
             return localBin;
           if (sourceExt.includes(path.extname(baseName)))
             return void 0;
-          const foundExt = sourceExt.find((ext) => fs3.existsSync(`${localBin}${ext}`));
+          const foundExt = sourceExt.find((ext) => fs4.existsSync(`${localBin}${ext}`));
           if (foundExt)
             return `${localBin}${foundExt}`;
           return void 0;
@@ -1844,7 +1844,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
         if (this._scriptPath) {
           let resolvedScriptPath;
           try {
-            resolvedScriptPath = fs3.realpathSync(this._scriptPath);
+            resolvedScriptPath = fs4.realpathSync(this._scriptPath);
           } catch (err) {
             resolvedScriptPath = this._scriptPath;
           }
@@ -3399,7 +3399,7 @@ var require_file_command = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.prepareKeyValueMessage = exports2.issueFileCommand = void 0;
-    var fs3 = __importStar(require("fs"));
+    var fs4 = __importStar(require("fs"));
     var os = __importStar(require("os"));
     var uuid_1 = (init_esm_node(), __toCommonJS(esm_node_exports));
     var utils_1 = require_utils();
@@ -3408,10 +3408,10 @@ var require_file_command = __commonJS({
       if (!filePath) {
         throw new Error(`Unable to find environment variable for file command ${command}`);
       }
-      if (!fs3.existsSync(filePath)) {
+      if (!fs4.existsSync(filePath)) {
         throw new Error(`Missing file at path: ${filePath}`);
       }
-      fs3.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os.EOL}`, {
+      fs4.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os.EOL}`, {
         encoding: "utf8"
       });
     }
@@ -34925,7 +34925,7 @@ var require_form_data = __commonJS({
     var http2 = require("http");
     var https4 = require("https");
     var parseUrl = require("url").parse;
-    var fs3 = require("fs");
+    var fs4 = require("fs");
     var Stream = require("stream").Stream;
     var mime = require_mime_types();
     var asynckit = require_asynckit();
@@ -34990,7 +34990,7 @@ var require_form_data = __commonJS({
         if (value.end != void 0 && value.end != Infinity && value.start != void 0) {
           callback(null, value.end + 1 - (value.start ? value.start : 0));
         } else {
-          fs3.stat(value.path, function(err, stat) {
+          fs4.stat(value.path, function(err, stat) {
             var fileSize;
             if (err) {
               callback(err);
@@ -39934,6 +39934,24 @@ var changefrequencyAction = async (options) => {
   };
 };
 
+// src/actions/performance.ts
+var import_node_fs3 = __toESM(require("node:fs"));
+var performanceAction = async (input) => {
+  if (!import_node_fs3.default.existsSync(input.file)) {
+    throw new Error(`File ${input.file} does not exist!`);
+  }
+  const urlParameters = new URLSearchParams({
+    ref: input.ref
+  });
+  return {
+    data: {
+      file: input.file,
+      contentType: "application/json"
+    },
+    url: createUrl(`upload-performance?${urlParameters.toString()}`)
+  };
+};
+
 // src/execute.ts
 async function execute() {
   try {
@@ -39945,6 +39963,8 @@ async function execute() {
       postAction = await lighthouseAction(input);
     } else if (input.kind === "sonarqube") {
       postAction = await sonarqubeAction(input);
+    } else if (input.kind === "performance") {
+      postAction = await performanceAction(input);
     } else {
       postAction = await changefrequencyAction(input);
     }
@@ -39961,7 +39981,7 @@ async function execute() {
 }
 
 // package.json
-var version2 = "2.1.4";
+var version2 = "2.1.5";
 
 // src/cli.ts
 var program2 = new Command();
@@ -39992,6 +40012,32 @@ program2.command("lighthouse").description("Upload a lighthouse audit for a URL"
     validateCertificates: options.validateCertificates,
     file,
     kind: "lighthouse",
+    ref: options.ref
+  });
+  mockContext({
+    eventName: "push",
+    payload: {
+      repository: {
+        owner: {
+          login: options.namespace
+        },
+        default_branch: options.defaultBranch,
+        name: options.repository
+      }
+    },
+    sha: options.ref
+  });
+  await execute();
+});
+program2.command("performance").description("Upload a set of performance data for an application").argument("<file>", "The file to upload").action(async (file, local, cmd) => {
+  const options = cmd.optsWithGlobals();
+  mockInput({
+    projectName: options.namespace,
+    repository: options.repository,
+    endpoint: options.endpoint,
+    validateCertificates: options.validateCertificates,
+    file,
+    kind: "performance",
     ref: options.ref
   });
   mockContext({

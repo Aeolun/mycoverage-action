@@ -1,11 +1,12 @@
 import * as core from "@actions/core";
 import { sonarqubeAction } from "./actions/sonarqube";
 import { createInput } from "./lib/create-input";
-import { ActionInterface } from "./actions/action-interface";
+import type { ActionInterface } from "./actions/action-interface";
 import { coverageAction } from "./actions/coverage";
 import { lighthouseAction } from "./actions/lighthouse";
 import { post } from "./lib/post";
 import { changefrequencyAction } from "./actions/changefrequency";
+import { performanceAction } from "./actions/performance";
 
 export async function execute() {
   try {
@@ -18,6 +19,8 @@ export async function execute() {
       postAction = await lighthouseAction(input);
     } else if (input.kind === "sonarqube") {
       postAction = await sonarqubeAction(input);
+    } else if (input.kind === "performance") {
+      postAction = await performanceAction(input);
     } else {
       postAction = await changefrequencyAction(input);
     }

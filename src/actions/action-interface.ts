@@ -8,6 +8,7 @@ export type DataFormat =
 export type CommonActionInput = {
   projectName: string;
   repository: string;
+  validateCertificates: boolean;
   endpoint: string;
   ref: string;
 };
@@ -27,6 +28,11 @@ export type ChangeFrequencyActionInput = CommonActionInput & {
   kind: "changefrequency";
 };
 
+export type PerformanceActionInput = CommonActionInput & {
+  kind: "performance";
+  file: string;
+};
+
 export type SonarqubeActionInput = CommonActionInput & {
   kind: "sonarqube";
   sonarqubeServer: string;
@@ -38,7 +44,8 @@ export type ActionInput =
   | CoverageActionInput
   | LighthouseActionInput
   | ChangeFrequencyActionInput
-  | SonarqubeActionInput;
+  | SonarqubeActionInput
+  | PerformanceActionInput;
 
 export type ActionResponse = Promise<{
   url: string;

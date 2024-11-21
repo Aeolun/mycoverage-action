@@ -1,12 +1,12 @@
 import * as github from "@actions/github";
 import { createUrl } from "../lib/create-url";
-import {
+import type {
   ActionInterface,
   LighthouseActionInput,
 } from "../actions/action-interface";
 
 export const lighthouseAction: ActionInterface<LighthouseActionInput> = async (
-  input
+  input,
 ) => {
   const urlParameters = new URLSearchParams({
     ref:

@@ -519,7 +519,7 @@ var require_file_command = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.prepareKeyValueMessage = exports2.issueFileCommand = void 0;
-    var fs3 = __importStar(require("fs"));
+    var fs4 = __importStar(require("fs"));
     var os = __importStar(require("os"));
     var uuid_1 = (init_esm_node(), __toCommonJS(esm_node_exports));
     var utils_1 = require_utils();
@@ -528,10 +528,10 @@ var require_file_command = __commonJS({
       if (!filePath) {
         throw new Error(`Unable to find environment variable for file command ${command}`);
       }
-      if (!fs3.existsSync(filePath)) {
+      if (!fs4.existsSync(filePath)) {
         throw new Error(`Missing file at path: ${filePath}`);
       }
-      fs3.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os.EOL}`, {
+      fs4.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os.EOL}`, {
         encoding: "utf8"
       });
     }
@@ -32045,7 +32045,7 @@ var require_form_data = __commonJS({
     var http2 = require("http");
     var https4 = require("https");
     var parseUrl = require("url").parse;
-    var fs3 = require("fs");
+    var fs4 = require("fs");
     var Stream = require("stream").Stream;
     var mime = require_mime_types();
     var asynckit = require_asynckit();
@@ -32110,7 +32110,7 @@ var require_form_data = __commonJS({
         if (value.end != void 0 && value.end != Infinity && value.start != void 0) {
           callback(null, value.end + 1 - (value.start ? value.start : 0));
         } else {
-          fs3.stat(value.path, function(err, stat) {
+          fs4.stat(value.path, function(err, stat) {
             var fileSize;
             if (err) {
               callback(err);
@@ -37031,6 +37031,24 @@ var changefrequencyAction = async (options) => {
   };
 };
 
+// src/actions/performance.ts
+var import_node_fs3 = __toESM(require("node:fs"));
+var performanceAction = async (input) => {
+  if (!import_node_fs3.default.existsSync(input.file)) {
+    throw new Error(`File ${input.file} does not exist!`);
+  }
+  const urlParameters = new URLSearchParams({
+    ref: input.ref
+  });
+  return {
+    data: {
+      file: input.file,
+      contentType: "application/json"
+    },
+    url: createUrl(`upload-performance?${urlParameters.toString()}`)
+  };
+};
+
 // src/execute.ts
 async function execute() {
   try {
@@ -37042,6 +37060,8 @@ async function execute() {
       postAction = await lighthouseAction(input);
     } else if (input.kind === "sonarqube") {
       postAction = await sonarqubeAction(input);
+    } else if (input.kind === "performance") {
+      postAction = await performanceAction(input);
     } else {
       postAction = await changefrequencyAction(input);
     }
