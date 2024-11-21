@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/serialexp/mycoverage-action/compare/v2.1.5...v2.2.0) (2024-11-21)
+
+
+### Features
+
+* add action to upload performance data ([ab3fafe](https://github.com/serialexp/mycoverage-action/commit/ab3fafe86780687a950cabec4aa2c2ffa5cf67c7))
+
 ## [2.1.5](https://github.com/serialexp/mycoverage-action/compare/v2.1.4...v2.1.5) (2024-03-27)
 
 
